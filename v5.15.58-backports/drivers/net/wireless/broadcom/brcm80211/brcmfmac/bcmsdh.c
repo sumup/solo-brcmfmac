@@ -1225,6 +1225,10 @@ static void brcmf_ops_sdio_remove(struct sdio_func *func)
 		if (func->num != SDIO_FUNC_1)
 			return;
 
+		/* SOLO-5679: enable card detection before remove.
+		 * brcmf_sdiod_probe disables it again once the card is detected. */
+		sdiodev->func2->card->host->caps &= ~MMC_CAP_NONREMOVABLE;
+
 		/* only proceed with rest of cleanup if func 1 */
 		brcmf_sdiod_remove(sdiodev);
 
