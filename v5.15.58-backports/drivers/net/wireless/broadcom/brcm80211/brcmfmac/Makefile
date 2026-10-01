@@ -5,9 +5,10 @@
 # Copyright (c) 2010 Broadcom Corporation
 #
 
+# -I must stay one word: kbuild's addtree drops a bare -I when building with a separate objtree.
 ccflags-y += \
-	-I $(src) \
-	-I $(src)/../include \
+	-I$(src) \
+	-I$(src)/../include \
 	-Werror
 
 obj-$(CPTCFG_BRCMFMAC) += brcmfmac.o
